@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+@import "primeicons/primeicons.css";
+
+/* Global styles.css or component's styles.scss */
+
+/* Custom background color for the entire table */
+.p-datatable {
+  background-color: #f0f0f0 !important; /* Set your desired color */
+}
+
+/* Custom background color for the table header */
+.p-datatable-header {
+  background-color: #dcdcdc !important; /* Light grey background for header */
+}
+
+/* Custom background color for table rows */
+.p-datatable .p-datatable-tbody > tr {
+  background-color: #ffffff !important; /* White background for rows */
+}
+
+/* Custom background color for table rows on hover */
+.p-datatable .p-datatable-tbody > tr:hover {
+  background-color: #e0e0e0 !important; /* Light grey background on row hover */
+}
+
+/* Custom background color for the empty message row */
+.p-datatable .p-datatable-emptymessage {
+  background-color: #f5f5f5 !important; /* Custom background for "No records found" row */
+}

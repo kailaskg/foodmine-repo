@@ -1,0 +1,129 @@
+<div class="w-full">
+  <div class="bg-white shadow-md rounded-lg p-4">
+    <!-- PrimeNG Table -->
+    <p-table
+      #dtGrid
+      [value]="menus"
+      [paginator]="true"
+      [rows]="10"
+      [columns]="cols"
+      [rowsPerPageOptions]="[10, 20, 30]"
+      [resizableColumns]="true"
+      columnResizeMode="expand"
+      [scrollable]="true"
+      scrollHeight="500px"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      class="p-datatable-striped"
+      [style]="{ width: '100%' }"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    >
+      <!-- Table Header -->
+      <ng-template pTemplate="header">
+        <tr class="text-center whitespace-nowrap">
+          <th class="whitespace-nowrap px-4 py-2">Actions</th>
+          <ng-container *ngFor="let col of cols">
+            <th
+              *ngIf="col.header"
+              [pSortableColumn]="col.field"
+              pResizableColumn
+              class="whitespace-nowrap overflow-hidden min-w-[5rem] px-4 py-2"
+            >
+              <div class="flex justify-between items-center">
+                {{ col.header }}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+              </div>
+            </th>
+          </ng-container>
+        </tr>
+      </ng-template>
+
+      <!-- Table Body -->
+      <ng-template pTemplate="body" let-rowData let-columns="cols">
+        <tr class="text-center whitespace-nowrap hover:bg-gray-100">
+          <td class="px-4 py-2">
+            <!-- Edit Button -->
+            <button
+              *ngIf="editingRowId !== rowData.id"
+              pButton
+              class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+              pTooltip="Edit Product"
+              tooltipPosition="top"
+              (click)="editProduct(rowData)"
+            >
+              <i class="pi pi-pencil"></i>
+            </button>
+
+            <!-- Save & Cancel Buttons -->
+            <button
+              *ngIf="editingRowId === rowData.id"
+              pButton
+              class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+              pTooltip="Save Product"
+              tooltipPosition="top"
+              (click)="saveProduct(rowData)"
+            >
+              <i class="pi pi-check"></i>
+            </button>
+
+            <button
+              *ngIf="editingRowId === rowData.id"
+              pButton
+              class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 ml-2"
+              pTooltip="Cancel"
+              tooltipPosition="top"
+              (click)="cancelEdit()"
+            >
+              <i class="pi pi-times"></i>
+            </button>
+          </td>
+
+          <ng-container *ngFor="let col of cols">
+            <td class="px-4 py-2">
+              <!-- Editable Fields -->
+              <ng-container *ngIf="editingRowId === rowData.id">
+                <!-- Text Input for Editable Fields -->
+                <input
+                  *ngIf="col.field !== 'image'"
+                  [(ngModel)]="rowData[col.field]"
+                  class="border p-1 w-full"
+                />
+              </ng-container>
+
+              <!-- Non-Editable Fields -->
+              <ng-container *ngIf="editingRowId !== rowData.id">
+                <!-- Normal Text Display for Other Fields -->
+                <span *ngIf="col.field !== 'image'">
+                  {{ rowData[col.field] }}
+                </span>
+
+                <!-- Image Display -->
+                <img
+                  *ngIf="col.field === 'image'"
+                  [src]="rowData[col.field]"
+                  alt="Product Image"
+                  width="50"
+                  height="50"
+                  class="rounded"
+                />
+              </ng-container>
+            </td>
+          </ng-container>
+        </tr>
+      </ng-template>
+
+      <!-- Empty Message -->
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td [attr.colspan]="cols.length + 1" class="text-center px-4 py-2">
+            No records found.
+          </td>
+        </tr>
+      </ng-template>
+
+      <!-- Paginator Left Section -->
+      <ng-template pTemplate="paginatorleft" let-state>
+        <h5 class="pl-2 text-gray-700">{{ state.totalRecords }} Logs</h5>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

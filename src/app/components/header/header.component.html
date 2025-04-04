@@ -1,0 +1,38 @@
+<p-menubar [model]="items">
+  <!-- <ng-template #start>
+    <svg
+      width="33"
+      height="35"
+      viewBox="0 0 33 35"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M16.5,0C7.4,0,0,7.4,0,16.5S7.4,33,16.5,33S33,25.6,33,16.5S25.6,0,16.5,0z"
+        fill="var(--primary-color)"
+      />
+    </svg>
+  </ng-template> -->
+
+  <ng-template pTemplate="item" let-item let-root="root">
+    <a
+      pRipple
+      class="flex items-center p-menubar-item-link"
+      (click)="navigateTo(item.url)"
+    >
+      <i class="pi pi-home"></i>
+      <!-- Dynamically apply icon class -->
+      <span>{{ item.label }}</span>
+    </a>
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    <div class="flex items-center gap-2">
+      <input type="text" pInputText placeholder="Search" class="w-36" />
+      <p-avatar
+        image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+        shape="circle"
+      />
+    </div>
+  </ng-template>
+</p-menubar>
